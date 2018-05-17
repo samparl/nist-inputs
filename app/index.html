@@ -7,7 +7,7 @@
       (()=> {
         async function fetchPws() {
           const response = await fetch("http://localhost:3000/passwords");
-          window.passwords = await response.text();
+          window.passwords = await response.text().then(passwords => passwords.split(/\r?\n/));
           // TODO: parse and store passwords.
         };
         fetchPws();
@@ -30,10 +30,8 @@
       const form = document.getElementById('password-form');
       form.addEventListener('change', (event) => {
         const input = document.getElementById('password-input');
-        const parsedPasswords = passwords.split(/\r?\n/);
-        console.log('submitting');
         input.setCustomValidity('Please choose a less common password.');
-        if (parsedPasswords.includes(input.value)) {
+        if (passwords.includes(input.value)) {
           input.setCustomValidity('Please choose a less common password.');
         } else {
           input.setCustomValidity('');
