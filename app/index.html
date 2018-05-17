@@ -7,7 +7,7 @@
       (()=> {
         async function fetchPws() {
           const response = await fetch("http://localhost:3000/passwords");
-          const passwords = await response.text();
+          window.passwords = await response.text();
           // TODO: parse and store passwords.
         };
         fetchPws();
@@ -16,11 +16,30 @@
   </head>
   <body>
     <h1>NIST Password Validator</h1>
-    <form>
+    <form id="password-form">
       Password:
-      <input type="password" autocomplete="off" required>
+      <input id="password-input"
+        type="password"
+        minlength="8"
+        maxlength="64"
+        autocomplete="off"
+        required>
       <input type="submit" value="Check">
     </form>
+    <script>
+      const form = document.getElementById('password-form');
+      form.addEventListener('change', (event) => {
+        const input = document.getElementById('password-input');
+        const parsedPasswords = passwords.split(/\r?\n/);
+        console.log('submitting');
+        input.setCustomValidity('Please choose a less common password.');
+        if (parsedPasswords.includes(input.value)) {
+          input.setCustomValidity('Please choose a less common password.');
+        } else {
+          input.setCustomValidity('');
+        }
+      })
+    </script>
   </body>
 </html>
 
