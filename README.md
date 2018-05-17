@@ -5,17 +5,6 @@ The new guidelines specify general rules for handling the security of user suppl
 Previously passwords were suggested to have certain composition rules (special characters, numbers, etc), hints and expiration times.
 Those have gone out the window and the new suggestions are as follows:
 
-Passwords MUST
-
-1. Have an 8 character minimum
-2. AT LEAST 64 character maximum
-2. Allow all ASCII characters and spaces (unicode optional)
-4. Not be a common password
-
-# Project
-
-We want a simple webpage to check if a password is NIST compliant for anyone to use. The only way for users to trust that we are not harvesting their passwords is to have the validator run completely in the browser. We will define NIST compliant as having an 8 character minimum, 64 character maximum, contains only ASCII characters, and not in the common password collection supplied by the local server at http://localhost:3000/passwords. The user supplied passwords should never leave the window in any form (even encrypted). The collection of common passwords is loaded into memory by http://localhost:3000/passwords when the local server boots. Use this repo as boilerplate. Add whatever code/files are needed under ./app and do not edit server. Clone this repo as boilerplate for your solution.
-
 ## Requirements
 
 * Validate a input password is between 8-64 characters, is only ASCII characters, and not in the common passwords collection.
@@ -43,3 +32,5 @@ node server.js // bootup server
 ```
 
 Server will be available at http://localhost:3000/ and the ./app directory will be mounted to '/'.
+
+Type input into the form field and validate by hitting enter or clicking submit.

@@ -1,5 +1,8 @@
 const successText = document.createTextNode("Valid password!"); 
-const successNode = document.createElement('span');
+const successNode = document.createElement('div');
+successNode.id = 'success';
+successNode.className = 'success';
+
 successNode.appendChild(successText);
 
 const validateUncommonPassword = input => {
@@ -11,10 +14,6 @@ const validateUncommonPassword = input => {
 }
 
 const validateAscii = input => {
-    if (document.contains(successNode)) {
-        successNode.remove();
-    }
-
     if (!/^[\x00-\x7F]*$/.test(input.value)) {
         input.setCustomValidity('Please use only ASCII characters.');
     };
@@ -36,8 +35,18 @@ const invalid = () => {
 
 const validateInput = event => {
     const input = event.target;
+    if (!!input.value) {
+        input.className = "active";
+    } else {
+        input.className = "";
+    }
+    if (document.contains(successNode)) {
+        successNode.remove();
+    }
+
     validateUncommonPassword(input);
     validateAscii(input);
+    console.log(form.checkValidity());
 }
 const input = document.getElementById('password-input');
 const form = document.getElementById('password-form');
